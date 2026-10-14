@@ -31,7 +31,7 @@ for numero, nave in enumerate(naves, start=1):
         naves_listas+=1
     else:
         print("Estado inical: Recargar ")    
-        naves_recarga+=1
+        naves_recargas+=1
         ciclo=0
         while nave["combustible"] <=50:
             ciclo+=1

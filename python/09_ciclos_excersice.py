@@ -20,7 +20,7 @@ naves = [
 ]
 
 naves_listas = 0
-naves_recarga = 0
+naves_recargas = 0
 total_droides = 0
 total_ciclos = 0
 for numero, nave in enumerate(naves, start=1):
@@ -30,7 +30,7 @@ for numero, nave in enumerate(naves, start=1):
         naves_listas+=1
     else:
         print("Estado inicial: RECARGAR")
-        naves_recarga+=1
+        naves_recargas+=1
         ciclo=0
         while nave["combustible"] <= 50:
             ciclo+=1
@@ -47,6 +47,6 @@ print("RESUMEN")
 print("===============================")
 print(f"Total naves:{len(naves)} ")
 print(f"Naves listas inicialmente:{naves_listas} ")
-print(f"Naves recargadas:{naves_recarga} ")
+print(f"Naves recargadas:{naves_recargas} ")
 print(f"Total Droides:{total_droides} ")
 print(f"Total ciclos:{total_ciclos} ")
