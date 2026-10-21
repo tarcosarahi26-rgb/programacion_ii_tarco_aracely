@@ -1,5 +1,5 @@
 from abc import ABC,abstractmethod
-from tkinter import N
+
 
 class NaveEspacial(ABC):
     modelo:str
@@ -37,6 +37,10 @@ nave_bulma =NaveCapsula("Nave de Bulma")
 nave_vegeta =NaveSaiyayin("Capsula Saiyajin")
 nave_bulma.despegar()
 nave_vegeta.despegar()
+
+
+
+
 
 
 
