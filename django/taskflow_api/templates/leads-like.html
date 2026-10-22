@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Océano · Mar de estrellas</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,400;1,700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--noche:#0b1e4a;--azul:#1d4f9c;--mar:#2f86c0;--turq:#58c0cf;--espuma:#eef5f3;--luna:#f4b21b;--sol:#ffd84a;--nar:#e08a1e;--t:"Fraunces",Georgia,serif;--b:"Nunito",system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--b);background:var(--noche);color:var(--espuma);line-height:1.7;overflow-x:hidden}
+img{display:block;max-width:100%}
+a,button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--sol);outline-offset:3px}
+h1,h2,h3{font-family:var(--t);line-height:1.1}
+h2{font-size:clamp(2rem,5vw,3.4rem);font-style:italic;margin-bottom:.6rem}
+section{padding:5rem 1.2rem;position:relative}
+.w{max-width:64rem;margin:0 auto}
+.sub{max-width:38rem;opacity:.9;margin-bottom:2rem}
+nav{position:fixed;inset:0 0 auto;z-index:30;display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem 1.6rem;padding:.8rem 1rem;background:rgba(11,30,74,.82);backdrop-filter:blur(6px);font-size:.92rem}
+nav a{text-decoration:none;border-bottom:2px solid transparent}
+nav a:hover{border-color:var(--sol)}
+/* hero */
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding-top:6rem;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%}
+.hero .w{position:relative;z-index:2}
+.hero h1{font-size:clamp(4rem,16vw,10rem);font-style:italic;text-shadow:0 4px 30px #0b1e4a}
+.hero p{font-size:1.2rem;max-width:30rem;margin:1rem auto 2rem;text-shadow:0 2px 12px #0b1e4a}
+.btn{display:inline-block;padding:.8rem 2rem;border-radius:999px;background:var(--sol);color:var(--noche);font-weight:600;text-decoration:none;transition:transform .2s}
+.btn:hover{transform:scale(1.06) rotate(-2deg)}
+.luna{position:absolute;top:9%;right:7%;width:min(20vw,130px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 60% 40%,#ffe08a,var(--luna) 55%,var(--nar));box-shadow:0 0 0 10px rgba(244,178,27,.25),0 0 60px 20px rgba(255,216,74,.45);overflow:hidden}
+.luna::after{content:"";position:absolute;width:70%;height:70%;border-radius:50%;background:#0f2a6b;left:-18%;top:6%;opacity:.88}
+.est{position:absolute;border-radius:50%;background:radial-gradient(circle,#fff8c4 0 18%,var(--sol) 40%,transparent 70%);animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{transform:scale(1.35);opacity:.7}}
+.olas{position:absolute;bottom:-2px;left:0;width:200%;height:90px;animation:ol 14s linear infinite;z-index:3}
+@keyframes ol{to{transform:translateX(-50%)}}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.2rem;text-align:center;margin-top:2rem}
+.stat{background:rgba(88,192,207,.12);border:2px solid rgba(88,192,207,.35);border-radius:1.4rem 2.4rem 1.4rem 2.4rem;padding:1.4rem 1rem}
+.stat b{display:block;font-family:var(--t);font-size:2.8rem;color:var(--sol)}
+/* cuadro */
+.cuadro{background:linear-gradient(#0b1e4a,#123a7a)}
+.cuadro .w{display:grid;grid-template-columns:minmax(0,24rem) 1fr;gap:2.5rem;align-items:center}
+.marco{position:relative;border:10px solid #e9dcc0;border-radius:6px;box-shadow:0 20px 50px #000a}
+.marco img{width:100%}
+.hs{position:absolute;width:34px;height:34px;transform:translate(-50%,-50%);border-radius:50%;border:3px solid #fff;background:rgba(255,216,74,.85);cursor:pointer;animation:pl 2s infinite;font-weight:700;color:var(--noche)}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(255,216,74,.8)}100%{box-shadow:0 0 0 16px transparent}}
+.info{background:rgba(255,255,255,.08);border-left:6px solid var(--sol);border-radius:1rem;padding:1.5rem;min-height:11rem}
+.info h3{font-size:1.9rem;color:var(--sol);margin-bottom:.4rem}
+/* profundidad */
+#prof{transition:background .4s}
+.prof .w{max-width:46rem}
+input[type=range]{width:100%;accent-color:var(--sol);margin:1.5rem 0}
+.zona{background:rgba(0,0,0,.3);border-radius:1.2rem;padding:1.4rem;text-align:center}
+.zona h3{font-size:2rem;color:var(--sol)}
+.zona big{display:block;font-family:var(--t);font-size:3rem}
+/* animales */
+.filtros{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
+.filtros button{background:none;border:2px solid var(--turq);border-radius:999px;padding:.4rem 1.2rem;cursor:pointer}
+.filtros .on,.filtros button:hover{background:var(--turq);color:var(--noche)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:1.5rem}
+.card{background:#12408a;border-radius:1.2rem;overflow:hidden;box-shadow:0 8px 24px #0006;text-align:left;border:0;cursor:pointer;transition:transform .25s}
+.card:hover{transform:translateY(-6px) rotate(-1deg)}
+.card .im{height:150px;background-size:cover;background-position:center;display:grid;place-items:center;font-size:4.4rem;background-color:#1d4f9c}
+.card .tx{padding:1rem 1.2rem 1.3rem}
+.card h3{font-size:1.45rem;color:var(--sol)}
+.card .mas{display:none;margin-top:.6rem;font-size:.95rem;border-top:1px dashed var(--turq);padding-top:.6rem}
+.card.abierta .mas{display:block}
+.card small{opacity:.75}
+/* oceanos */
+.oc{display:grid;grid-template-columns:8rem 1fr;gap:.4rem 1rem;align-items:center}
+.bar{height:2rem;border-radius:1rem;background:linear-gradient(90deg,var(--turq),var(--sol));width:0;transition:width 1.4s;display:flex;align-items:center;padding-left:.8rem;color:var(--noche);font-weight:600;font-size:.85rem;white-space:nowrap}
+/* quiz */
+.quiz{background:rgba(0,0,0,.25);border-radius:1.5rem;padding:2rem;max-width:40rem}
+.quiz h3{font-size:1.6rem;margin-bottom:1rem}
+.op{display:block;width:100%;text-align:left;background:rgba(255,255,255,.1);border:2px solid transparent;border-radius:.8rem;padding:.7rem 1rem;margin:.5rem 0;cursor:pointer}
+.op:hover{border-color:var(--sol)}
+.op.ok{background:#2d9d6b}.op.mal{background:#b8483f}
+/* ayuda */
+.ay{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.2rem}
+.ay div{background:rgba(255,216,74,.1);border:2px dashed var(--sol);border-radius:1.2rem;padding:1.3rem}
+.ay span{font-size:2.4rem}
+footer{text-align:center;padding:4rem 1rem 3rem;background:#071436}
+.bub{position:fixed;bottom:-40px;border-radius:50%;border:2px solid rgba(255,255,255,.6);background:rgba(255,255,255,.15);pointer-events:none;animation:sube linear forwards;z-index:40}
+@keyframes sube{to{transform:translateY(-115vh) translateX(30px)}}
+@media(max-width:780px){.cuadro .w{grid-template-columns:1fr}.oc{grid-template-columns:5.5rem 1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<nav><a href="#inicio">Inicio</a><a href="#cuadro">El cuadro</a><a href="#prof">Profundidad</a><a href="#vida">Vida marina</a><a href="#oceanos">Océanos</a><a href="#quiz">Quiz</a><a href="#cuidar">Cuidarlo</a></nav>
+
+<header class="hero" id="inicio">
+<canvas id="cv"></canvas><div class="luna"></div>
+<i class="est" style="left:12%;top:18%;width:70px;height:70px"></i><i class="est" style="left:28%;top:34%;width:55px;height:55px;animation-delay:.8s"></i><i class="est" style="left:70%;top:24%;width:60px;height:60px;animation-delay:1.6s"></i><i class="est" style="left:84%;top:45%;width:45px;height:45px;animation-delay:2.2s"></i>
+<div class="w"><h1>Océano</h1>
+    <h1>{{titulo}}{{nombre}}{{apellido}}</h1><p>Un mar de estrellas, ballenas gigantes, medusas de luz y criaturas que apenas empezamos a conocer.</p><a class="btn" href="#cuadro">Sumérgete</a></div>
+<svg class="olas" viewBox="0 0 1200 90" preserveAspectRatio="none"><path d="M0 45Q75 5 150 45T300 45T450 45T600 45T750 45T900 45T1050 45T1200 45V90H0Z" fill="#0b1e4a"/></svg>
+</header>
+
+<section><div class="w"><h2>Un planeta azul</h2><p class="sub">El océano es el hogar de la mayor parte de la vida del planeta y regula el clima, el oxígeno y el agua que bebemos.</p>
+<div class="stats"><div class="stat"><b data-n="71" data-s="%">0</b>de la Tierra es océano</div><div class="stat"><b data-n="97" data-s="%">0</b>del agua del planeta es salada</div><div class="stat"><b data-n="10935" data-s=" m">0</b>en la Fosa de las Marianas</div><div class="stat"><b data-n="50" data-s="%">0</b>del oxígeno viene del mar, aprox.</div></div></div></section>
+
+<section class="cuadro" id="cuadro"><div class="w">
+<div class="marco"><img src="oceano-img/pintura.jpg" alt="Pintura en relieve de ballenas, mantarrayas, medusas y estrellas de mar bajo un cielo estrellado">
+<button class="hs" style="left:53%;top:40%" data-i="0" aria-label="Ballena">1</button><button class="hs" style="left:27%;top:65%" data-i="1" aria-label="Tiburón ballena">2</button><button class="hs" style="left:65%;top:85%" data-i="2" aria-label="Raya">3</button><button class="hs" style="left:10%;top:41%" data-i="3" aria-label="Medusa">4</button><button class="hs" style="left:53%;top:54%" data-i="4" aria-label="Estrella de mar">5</button><button class="hs" style="left:14%;top:87%" data-i="5" aria-label="Cola">6</button><button class="hs" style="left:50%;top:15%" data-i="6" aria-label="Cielo">7</button></div>
+<div><h2>El cuadro</h2><p class="sub">Toca los puntos amarillos para descubrir quién vive en esta pintura.</p><div class="info" id="info" aria-live="polite"><h3>Explora</h3><p>Elige un punto del cuadro.</p></div></div></div></section>
+
+<section class="prof" id="prof"><div class="w"><h2>Baja al fondo</h2><p class="sub">Mueve la barra y observa cómo cambian la luz y la vida con la profundidad.</p>
+<label for="rg">Profundidad: <b id="pm">0</b> m</label><input id="rg" type="range" min="0" max="11000" step="50" value="0">
+<div class="zona"><h3 id="zn"></h3><big id="zl"></big><p id="zd"></p></div></div></section>
+
+<section id="vida"><div class="w"><h2>Vida marina</h2><p class="sub">Toca una tarjeta para leer un dato curioso.</p>
+<div class="filtros" id="fl"><button class="on" data-f="todos">Todos</button><button data-f="gigante">Gigantes</button><button data-f="luz">Con luz propia</button><button data-f="pequeno">Pequeños</button><button data-f="inteligente">Inteligentes</button></div>
+<div class="grid" id="gr"></div></div></section>
+
+<section id="oceanos" style="background:#0f2d6a"><div class="w"><h2>Los cinco océanos</h2><p class="sub">Superficie aproximada, en millones de km².</p><div class="oc" id="oc"></div></div></section>
+
+<section id="quiz"><div class="w"><h2>¿Cuánto sabes del mar?</h2><div class="quiz" id="qz"></div></div></section>
+
+<section id="cuidar" style="background:#0f2d6a"><div class="w"><h2>Cuidemos el océano</h2><p class="sub">Pequeños hábitos que sí suman.</p>
+<div class="ay"><div><span>🥤</span><h3>Menos plástico</h3><p>Cada año llegan millones de toneladas de plástico al mar. Usa botellas y bolsas reutilizables.</p></div><div><span>🐟</span><h3>Pesca responsable</h3><p>Elige pescado de fuentes sostenibles y variadas.</p></div><div><span>🏖️</span><h3>Playas limpias</h3><p>No dejes basura y súmate a limpiezas de playa.</p></div><div><span>🌍</span><h3>Menos carbono</h3><p>El océano absorbe CO₂ y se calienta y acidifica. Reducir emisiones lo protege.</p></div></div></div></section>
+
+<footer><h2>Gracias por visitar el mar</h2><p>Toca cualquier parte de la página para hacer burbujas. El Día Mundial de los Océanos es el 8 de junio.</p></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+/* lienzo: pinceladas de remolino */
+(function(){const c=$('#cv'),x=c.getContext('2d');let W,H,n;const P=['#1d4f9c','#2f86c0','#58c0cf','#0f2a6b','#ffd84a','#8fd3e0','#163f8a'];
+function go(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;x.fillStyle='#0f2a6b';x.fillRect(0,0,W,H);n=0;f()}
+function s(){const px=Math.random()*W,py=Math.random()*H;let a=px,b=py;x.beginPath();x.moveTo(a,b);
+for(let i=0;i<9;i++){const dx=a-W*.45,dy=b-H*.4,d=Math.hypot(dx,dy)||1,t=Math.atan2(dy,dx)+Math.PI/2+.9*Math.sin(a/70)+.7*Math.cos(b/60)+(d<260?.6:0);a+=Math.cos(t)*6;b+=Math.sin(t)*6;x.lineTo(a,b)}
+const k=Math.random();x.strokeStyle=k>.93?P[4]:P[Math.floor(Math.random()*4)+(k>.6?2:0)];x.lineWidth=3+Math.random()*4;x.lineCap='round';x.globalAlpha=.85;x.stroke()}
+function f(){const m=matchMedia('(prefers-reduced-motion:reduce)').matches;const q=m?4000:90;for(let i=0;i<q;i++)s();if(!m&&++n<70)requestAnimationFrame(f);else if(m){}}
+go();let r;addEventListener('resize',()=>{clearTimeout(r);r=setTimeout(go,300)})})();
+/* contadores */
+const io=new IntersectionObserver(e=>e.forEach(t=>{if(!t.isIntersecting)return;const el=t.target;io.unobserve(el);
+if(el.dataset.n){const N=+el.dataset.n;let v=0;const u=()=>{v+=N/60;if(v>=N)v=N;el.textContent=Math.round(v).toLocaleString('es')+el.dataset.s;if(v<N)requestAnimationFrame(u)};u()}
+if(el.dataset.w)el.style.width=el.dataset.w}),{threshold:.4});
+document.querySelectorAll('[data-n]').forEach(e=>io.observe(e));
+/* cuadro */
+const H=[["Ballena jorobada","Mide unos 14–17 m y sus cantos pueden durar varios minutos. Migra miles de kilómetros cada año."],["Tiburón ballena","Es el pez más grande del mundo. Se alimenta filtrando plancton y cada uno tiene un patrón de puntos único."],["Raya","Las rayas y mantarrayas son parientes de los tiburones: su esqueleto es de cartílago, no de hueso."],["Medusa","Existen desde hace unos 500 millones de años. Son casi todo agua y no tienen cerebro ni corazón."],["Estrella de mar","No tiene cerebro ni sangre. Muchas especies pueden regenerar un brazo perdido."],["Cola de ballena","Los científicos reconocen a cada ballena por el dibujo de su cola, como una huella digital."],["Cielo estrellado","El remolino recuerda a La noche estrellada de Van Gogh: aquí el cielo y las olas se mezclan."]];
+document.querySelectorAll('.hs').forEach(b=>b.onclick=()=>{const h=H[b.dataset.i];$('#info').innerHTML='<h3>'+h[0]+'</h3><p>'+h[1]+'</p>'});
+/* profundidad */
+const Z=[[0,"Zona epipelágica","Luz del sol","Aquí hay fotosíntesis. Viven delfines, atunes, tortugas y la mayoría de los peces.","#2f86c0","#58c0cf"],[200,"Zona mesopelágica","Crepúsculo","Poca luz. Habitan calamares, pez linterna y muchos animales que brillan.","#1d4f9c","#9fd8e8"],[1000,"Zona batipelágica","Oscuridad total","Sin luz solar. Cachalotes bucean hasta aquí y hay peces abisales con luz propia.","#0f2f6b","#ffd84a"],[4000,"Zona abisopelágica","Frío extremo","Cerca de 2 °C y una presión enorme. Viven pulpos dumbo y gusanos tubulares.","#08183d","#ffd84a"],[6000,"Zona hadal","Las fosas","Son las fosas más profundas, como la de las Marianas. Aun así hay vida adaptada.","#040b22","#ff9b4a"]];
+const rg=$('#rg');function pr(){const v=+rg.value;let z=Z[0];Z.forEach(q=>{if(v>=q[0])z=q});$('#pm').textContent=v.toLocaleString('es');$('#zn').textContent=z[1];$('#zl').textContent=z[2];$('#zl').style.color=z[5];$('#zd').textContent=z[3];$('#prof').style.background='linear-gradient('+z[4]+',#040b22)'}rg.oninput=pr;pr();
+/* animales */
+const A=[["🐋","Ballena azul","El animal más grande que ha existido: hasta unos 30 m y más de 150 toneladas.","gigante","ballena"],["🦈","Tiburón ballena","Pez gigante y tranquilo que filtra plancton.","gigante","tiburon"],["🪼","Medusa","Algunas especies brillan en la oscuridad.","luz","medusa"],["⭐","Estrella de mar","Hay unas 2.000 especies.","pequeno","estrella"],["🐙","Pulpo","Tiene tres corazones y sangre azul. Resuelve acertijos.","inteligente"],["🐬","Delfín","Usa ecolocalización y se comunica con silbidos.","inteligente"],["🐢","Tortuga marina","Existen siete especies. Las hembras vuelven a desovar a su playa natal.","pequeno"],["🦑","Calamar gigante","Tiene los ojos más grandes del reino animal: hasta unos 27 cm.","gigante"],["🐡","Pez linterna","Casi todos los animales de las profundidades producen su propia luz.","luz"],["🐴","Caballito de mar","Es el macho quien lleva los huevos y da a luz.","pequeno"],["🪸","Coral","Los arrecifes cubren menos del 1% del fondo marino, pero albergan cerca de una cuarta parte de las especies.","pequeno"],["🦀","Cangrejo","Camina de lado y tiene el esqueleto por fuera.","pequeno"],["🏹","Raya manta","Su envergadura puede llegar a unos 7 m y tiene un cerebro grande entre los peces.","gigante","raya"]];
+const gr=$('#gr');gr.innerHTML=A.map(a=>'<button class="card" data-t="'+a[3]+'"><div class="im" '+(a[4]?'style="background-image:url(oceano-img/'+a[4]+'.jpg);font-size:0"':'')+'>'+a[0]+'</div><div class="tx"><h3>'+a[1]+'</h3><small>'+a[3]+'</small><p class="mas">'+a[2]+'</p></div></button>').join('');
+gr.onclick=e=>{const c=e.target.closest('.card');if(c)c.classList.toggle('abierta')};
+$('#fl').onclick=e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#fl button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('.card').forEach(c=>c.style.display=b.dataset.f=='todos'||c.dataset.t==b.dataset.f?'':'none')};
+/* océanos */
+const O=[["Pacífico",165],["Atlántico",106],["Índico",70],["Antártico",20],["Ártico",14]];
+$('#oc').innerHTML=O.map(o=>'<span>'+o[0]+'</span><div class="bar" data-w="'+o[1]/165*100+'%">'+o[1]+'</div>').join('');
+document.querySelectorAll('[data-w]').forEach(e=>io.observe(e));
+/* quiz */
+const Q=[["¿Qué porcentaje de la Tierra cubre el océano?",["30%","50%","71%"],2],["¿Cuál es el pez más grande del mundo?",["Tiburón blanco","Tiburón ballena","Atún"],1],["¿Cuántos corazones tiene un pulpo?",["1","3","8"],1],["¿Qué animal puede regenerar sus brazos?",["Estrella de mar","Delfín","Tortuga"],0],["¿Dónde está la parte más profunda del océano?",["Mar Rojo","Fosa de las Marianas","Océano Ártico"],1]];
+let qi=0,pt=0;function rq(){const z=$('#qz');if(qi>=Q.length){z.innerHTML='<h3>Obtuviste '+pt+' de '+Q.length+'</h3><p>'+(pt>=4?'¡Eres una experta del mar!':'Sigue explorando y vuelve a intentarlo.')+'</p><br><button class="btn" onclick="qi=pt=0;rq()">Jugar de nuevo</button>';return}
+const q=Q[qi];z.innerHTML='<h3>'+q[0]+'</h3>'+q[1].map((o,i)=>'<button class="op" data-i="'+i+'">'+o+'</button>').join('');
+z.querySelectorAll('.op').forEach(b=>b.onclick=()=>{const ok=+b.dataset.i==q[2];if(ok)pt++;b.classList.add(ok?'ok':'mal');z.querySelectorAll('.op').forEach(x=>x.disabled=true);setTimeout(()=>{qi++;rq()},1000)})}rq();
+/* burbujas */
+function bb(x,y){const b=document.createElement('i');b.className='bub';const s=10+Math.random()*30;b.style.cssText='width:'+s+'px;height:'+s+'px;left:'+x+'px;top:'+y+'px;animation-duration:'+(4+Math.random()*4)+'s';document.body.appendChild(b);setTimeout(()=>b.remove(),8000)}
+addEventListener('click',e=>{for(let i=0;i<4;i++)bb(e.clientX+Math.random()*30-15,e.clientY)});
+setInterval(()=>bb(Math.random()*innerWidth,innerHeight),1500);
+</script>
+</body>
+</html>
