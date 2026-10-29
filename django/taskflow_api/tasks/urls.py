@@ -5,13 +5,14 @@ app_name = "tasks"
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("register", views.register, name="register"),
-    path("saludo", views.saludo, name="saludo"),
-    path("greeting/<str:nombre>/",
-          views.greeting, name="greeting"),
-    path("destination/<str:titulo>/<str:nombre>/<str:cargo>",
-              views.destination, name="destinatario"),
-    path("base_triangulo/<int:base>/<int:altura>",
-                  views.base_triangulo, name="base_triangulo"),
-    path("leads-like", views.leads_like, name="leads_like"),
+    path("register/", views.register, name="register"),
+    path("aboutme/", views.about_me, name="about_me"),
+    path("saludo/<str:nombre>/", views.greeting, name="saludo"),
+    path("destinatario/<str:titulo>/<str:nombre>/<str:cargo>/", views.destination, name="destinatario"),
+    path("base-triangulo/<int:base>/<int:altura>/", views.base_triangulo, name="base-triangulo"),
+    path("my-first-template/", views.my_first_template, name="my-first-template"),
+    path("leads-like/", views.leads_like, name="leads-like"),
+    path("projects/", views.lista, name="project-list"),
+    path("projects/new/", views.project_create, name="project_create"),
+    path("tasks/new/", views.task_create, name="task_create"),
 ]
