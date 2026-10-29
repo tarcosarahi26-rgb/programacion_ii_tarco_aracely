@@ -1,5 +1,3 @@
-from cmath import e
-from venv import create
 from django.db import models
 
 class Project(models.Model):
@@ -9,6 +7,18 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Panaderia(models.Model):
+    nombre = models.CharField(max_length=100)
+    tipo_panes = models.TextField(blank=True)
+    utencilios_cocina = models.TextField(blank=True)
+    ingredientes = models.TextField(blank=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nombre
+
 
 class Task(models.Model):
     class Status(models.TextChoices):
@@ -74,7 +84,7 @@ class Alumno(models.Model):
 
 class Perfil(models.Model):
     alumno = models.OneToOneField(Alumno, on_delete=models.CASCADE)
-    foto = models.ImageField(upload_to='pefiles/')
+    foto = models.ImageField(upload_to='perfiles/')
 
 class Mision(models.Model):
     titulo = models.CharField(max_length=100)
@@ -90,7 +100,7 @@ class Estudiante(models.Model):
 
 class Actividad(models.Model):
     titulo=models.CharField(max_length=100)
-    objetivo=models.CharField(max_length=300)
+    objetivo = models.CharField(max_length=300)
     
     estudiantes=models.ManyToManyField(
         Estudiante,

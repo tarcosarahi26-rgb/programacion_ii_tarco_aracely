@@ -30,7 +30,7 @@ def project_create(request):
         form = ProjectForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("tasks:project-list")
+            return redirect("tasks:project")
     else:
         form = ProjectForm()
 
