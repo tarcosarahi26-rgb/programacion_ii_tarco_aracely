@@ -1,0 +1,12 @@
+{% extends "bases.html" %}
+
+{% block content %}
+<h1>{% if modo == "crear" %}Nuevo proyecto{% else %}Editar proyecto{% endif %}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+    <a href="{% url 'tasks:project-list' %}">Cancelar</a>
+</form>
+{% endblock %}
