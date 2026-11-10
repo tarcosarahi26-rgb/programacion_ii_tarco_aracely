@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from catalogo.forms.categoria_form import CategoriaForm
 from catalogo.models import Categoria
@@ -16,4 +16,24 @@ def categoria_create(request):
             return redirect('categoria_list')
     else:
         form = CategoriaForm()
-    return render(request, 'formulario.html', {'formulario': form})
+    return render(request, 'formulario.html', {'form': form})
+
+def categoria_update(request, pk):
+    categoria = get_object_or_404(Categoria, pk=pk)
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST, instance=categoria)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Categoría actualizada exitosamente.')
+            return redirect('categoria_list')
+    else:
+        form = CategoriaForm(instance=categoria)
+    return render(request, 'formulario.html', {'form': form})
+
+def categoria_delete(request, pk):
+    categoria = get_object_or_404(Categoria, pk=pk)
+    if request.method == 'POST':
+        categoria.delete()
+        messages.success(request, 'Categoría eliminada exitosamente.')
+        return redirect('categoria_list')
+    return render(request, 'categoria_confirm_delete.html', {'categoria': categoria})

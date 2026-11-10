@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+</head>
+<body>
+        <h1>Inicio</h1>
+        <p>Bienvenido a la aplicación de gestión de libros.</p>
+        <p>Desde aquí puedes gestionar los libros disponibles en la biblioteca.</p>
+        <h2>Menú Principal</h2>
+        <ul>
+            <li><a href="{% url 'libro_list' %}">Lista de Libros</a></li>
+            <li><a href="{% url 'categoria_list' %}">Lista de Categorías</a></li>
+        </ul>
+</body>
+</html>
