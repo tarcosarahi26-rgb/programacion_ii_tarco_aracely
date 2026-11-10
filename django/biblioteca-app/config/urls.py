@@ -1,10 +1,10 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(pattern_name='categoria_list', permanent=False), name='home'),
+    path('', include('catalogo.urls.home_urls')),
     path('catalogo/', include('catalogo.urls.categoria_urls')),  # Incluye las URLs de la aplicación 'catalogo'
+    path('catalogo/libros/', include('catalogo.urls.libro_urls')),  # Incluye las URLs de la aplicación 'catalogo'
 ]
