@@ -3,44 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Libros</title>
+    <title>Lista de libros</title>
+    
 </head>
 <body>
-    <h1>Lista de Libros</h1>
-    <button type="button">
-        <a href="{% url 'create_libro' %}">Crear Nuevo Libro</a>
-    </button>
+    <h1>Lista de libros</h1>
     {% if messages %}
-        <ul>
-            {% for mensaje in messages %}
-                <li>{{ mensaje }}</li>
-            {% endfor %}
-        </ul>
+    <ul>
+        {% for mensaje in messages %}
+        <li>{{ mensaje }}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
-    <table border="1" cellpadding="2">
+    {% if perms.catalogo.add_libro %}
+    <button>
+        <a href="{% url 'create_libro' %}">Crear nuevo libro</a>
+    </button>
+    {% endif %}
+    <button>
+        <a href="{% url 'categoria_list' %}">Ver categorías</a>
+    </button>
+    <button>
+        <a href="{% url 'home' %}">Volver al inicio</a>
+    </button>
+
+    <h2>Buscar Libros</h2>
+    <form method="GET">
+        <P>
+            <label for="buscar">Buscar por titulo, autor o categoria</label>
+            <input type="text" name="pista" id="pista" value="{{pista}}">
+        </P>
+        <p>
+            <label for="categoria">
+                Categoria
+            </label>
+            <select id="categoria" name="categoria_id">
+                <option value="">Todas las categorias</option>
+                {% for categoria in categorias %}
+                <option value="{{categoria.id}}"
+                {% if categoria_id == categoria.id|stringformat:"s" %} selected {% endif %}>
+                {{categoria.nombre}}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Buscar</button>
+        </p>
+    </form>
+    <table>
         <thead>
             <tr>
                 <th>Título</th>
                 <th>Autor</th>
-                <th>Fecha de Publicación</th>
+                <th>Fecha de publicación</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for libro in libros %}
-                <tr>
-                    <td>{{ libro.titulo }}</td>
-                    <td>{{ libro.autor }}</td>
-                    <td>{{ libro.fecha_publicacion|date:"j \\d\\e F \\d\\e Y" }}</td>
-                    <td>
-                        <a href="{% url 'update_libro' libro.pk %}">Editar</a>
-                        <a href="{% url 'delete_libro' libro.pk %}">Eliminar</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.autor }}</td>
+                <td>{{ libro.fecha_publicacion }}</td>
+                <td>
+                    {% if perms.catalogo.change_libro %}
+                    <a href="{% url 'update_libro' libro.pk %}">Editar</a>
+                    {% endif %}
+                    {% if perms.catalogo.delete_libro %}
+                    <a href="{% url 'delete_libro' libro.pk %}">Eliminar</a>
+                    {% endif %}
+                </td>
+            </tr>
             {% empty %}
-                <tr>
-                    <td colspan="4">No hay libros disponibles.</td>
-                </tr>
+            <tr>
+                <td colspan="4">No hay libros disponibles.</td>
+            </tr>
             {% endfor %}
         </tbody>
         <tfoot>
