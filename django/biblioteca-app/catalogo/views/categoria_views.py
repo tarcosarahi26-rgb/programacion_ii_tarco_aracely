@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from catalogo.models import Categoria
 from catalogo.forms.categoria_form import CategoriaForm
+
 from django.contrib.auth.decorators import login_required, permission_required
 @login_required
 
@@ -12,7 +13,7 @@ def categoria_list(request):
     categorias = Categoria.objects.all()
     return render(
         request,
-        'catalogo/categorias/categorias_list.html',
+        'categoria_list.html',
         {'categorias': categorias},
     )
 
