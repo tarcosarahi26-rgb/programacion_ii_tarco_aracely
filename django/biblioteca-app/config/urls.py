@@ -10,6 +10,8 @@ urlpatterns = [
     path('catalogo/', include('catalogo.urls.categoria_urls')),  # Incluye las URLs de la aplicación 'catalogo'
     path('catalogo/libros/', include('catalogo.urls.libro_urls')),
     path('catalogo/auth/', include('catalogo.urls.authentication_urls')),
+    path('catalogo/autores/', include('catalogo.urls.autor_urls')),  # Incluye las URLs de la aplicación 'catalogo'
     
     
 ]
+

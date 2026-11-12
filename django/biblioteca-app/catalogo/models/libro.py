@@ -9,7 +9,7 @@ class Libro(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.titulo  
+        return str(self.titulo)
     class Meta:
         verbose_name = "Libro"
         verbose_name_plural = "Libros"

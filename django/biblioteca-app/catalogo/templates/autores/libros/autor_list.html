@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Autores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #64748b;
+            --secondary-hover: #475569;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --warning: #f59e0b;
+            --warning-hover: #d97706;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        /* Encabezado y navegación */
+        .header-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+        }
+
+        .nav-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.55rem 1.1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: var(--radius);
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        /* Alertas / Mensajes de Django */
+        .messages-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .message-item {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+            padding: 0.875rem 1.25rem;
+            border-radius: var(--radius);
+            font-size: 0.925rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* Tarjetas (Buscador y Tabla) */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        /* Formulario de Búsqueda */
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.55rem 0.85rem;
+            font-size: 0.925rem;
+            font-family: inherit;
+            color: var(--text-main);
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        /* Tabla */
+        .table-container {
+            background-color: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background-color: #f1f5f9;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            padding: 0.875rem 1.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        td {
+            padding: 1rem 1.25rem;
+            font-size: 0.925rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        tbody tr {
+            transition: background-color 0.15s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge-id {
+            font-family: monospace;
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Enlaces de acciones en la tabla */
+        .actions-cell {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-link {
+            padding: 0.35rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .action-edit {
+            background-color: #fef3c7;
+            color: #b45309;
+        }
+
+        .action-edit:hover {
+            background-color: #fde68a;
+        }
+
+        .action-delete {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .action-delete:hover {
+            background-color: #fecaca;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        tfoot {
+            background-color: #f8fafc;
+            border-top: 2px solid var(--border-color);
+        }
+
+        tfoot td {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            padding: 0.875rem 1.25rem;
+        }
+
+        /* Diseño Responsivo para móviles */
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            .header-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Encabezado y Botones de Navegación -->
+        <header class="header-bar">
+            <h1>Lista de Autores</h1>
+            <nav class="nav-actions">
+                {% if perms.catalogo.add_autor %}
+                <a href="{% url 'autor_create' %}" class="btn btn-primary">+ Nuevo Autor</a>
+                {% endif %}
+                <a href="{% url 'autor_list' %}" class="btn btn-outline">Actualizar Lista</a>
+                <a href="{% url 'home' %}" class="btn btn-outline">← Atrás</a>
+            </nav>
+        </header>
+
+        <!-- Mensajes de Django -->
+        {% if messages %}
+        <ul class="messages-list">
+            {% for mensaje in messages %}
+            <li class="message-item">{{ mensaje }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- Tarjeta de Búsqueda -->
+        <section class="card">
+            <h2>Buscar Autores</h2>
+            <form method="GET" class="search-form">
+                <div class="form-group">
+                    <label for="pista">Nombre, apellido o nacionalidad</label>
+                    <input type="text" name="pista" id="pista" class="form-control" placeholder="Ej. Gabriel García..." value="{{ pista|default:'' }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="autor">Filtrar por autor específico</label>
+                    <select id="autor" name="autor_id" class="form-control">
+                        <option value="">Todos los autores</option>
+                        {% for autor in todos_autores %}
+                            <option value="{{ autor.id }}"
+                            {% if autor_id == autor.id|stringformat:"s" %} selected {% endif %}>
+                                {{ autor.nombre }} {{ autor.apellido }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </section>
+
+        <!-- Tabla de Resultados -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Nacionalidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for autor in autores %}
+                    <tr>
+                        <td><span class="badge-id">#{{ autor.id }}</span></td>
+                        <td><strong>{{ autor.nombre }}</strong></td>
+                        <td>{{ autor.apellido }}</td>
+                        <td>{{ autor.nacionalidad }}</td>
+                        <td>
+                            <div class="actions-cell">
+                                {% if perms.catalogo.change_autor %}
+                                <a href="{% url 'autor_update' autor.pk %}" class="action-link action-edit">Editar</a>
+                                {% endif %}
+                                {% if perms.catalogo.delete_autor %}
+                                <a href="{% url 'autor_delete' autor.pk %}" class="action-link action-delete">Eliminar</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-state">No se encontraron autores con esos criterios.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5">Total de autores mostrados: {{ autores|length }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
